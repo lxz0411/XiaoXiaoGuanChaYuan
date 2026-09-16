@@ -21,7 +21,7 @@ const selectedPatient = computed(() => {
 const icons = name => iconModules[`../../素材/医院页/${name}.png`] || ''
 
 onMounted(async () => {
-  const response = await fetch('/patients.json')
+  const response = await fetch(`${import.meta.env.BASE_URL}patients.json`)
   records.value = await response.json()
 })
 </script>
