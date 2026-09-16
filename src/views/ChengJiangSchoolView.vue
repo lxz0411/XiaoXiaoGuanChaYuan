@@ -11,21 +11,25 @@ const focusItems = [
     image: openingCeremony,
     title: '我校举行2014年秋季开学典礼暨“践行八礼四仪·争做阳光少年”主题少先队活动',
     date: '2014-09-02',
+    newsPath: '#/school/news/opening-ceremony',
   },
   {
     image: teachingCompetition,
     title: '我校举办教师教学能力评比大赛',
     date: '2014-06-21',
+    newsPath: '#/school/news/teaching-competition',
   },
   {
     image: canteenInspection,
     title: '热烈欢迎教育局领导参观我校食堂',
     date: '2014-05-14',
+    newsPath: '#/school/news/canteen-inspection',
   },
   {
     image: programAtSchool,
     title: '知名儿童节目进入我校举办线下活动',
     date: '2014-04-29',
+    newsPath: '#/school/news/program-at-school',
   },
 ]
 
@@ -45,6 +49,14 @@ function startFocusTimer() {
 function selectFocus(index) {
   activeFocusIndex.value = index
   startFocusTimer()
+}
+
+function openFocusNews() {
+  if (!activeFocus.value.newsPath) return
+
+  const url = new URL(window.location.href)
+  url.hash = activeFocus.value.newsPath
+  window.open(url, '_blank', 'noopener,noreferrer')
 }
 
 onMounted(startFocusTimer)
@@ -147,7 +159,14 @@ const services = [
 
         <section class="lead-grid">
           <article class="hero-card">
-            <div class="hero-image">
+            <div
+              class="hero-image"
+              :class="{ clickable: activeFocus.newsPath }"
+              :role="activeFocus.newsPath ? 'link' : undefined"
+              :tabindex="activeFocus.newsPath ? 0 : undefined"
+              @click="openFocusNews"
+              @keydown.enter="openFocusNews"
+            >
               <img :key="activeFocus.image" :src="activeFocus.image" :alt="activeFocus.title">
               <span class="focus-label">焦点专题</span>
               <div class="hero-caption">
@@ -175,9 +194,7 @@ const services = [
           <article class="news-card">
             <div class="tabs">
               <button type="button" class="active">▧ 学校快讯</button>
-              <button type="button">通知公告</button>
-              <button type="button">党建之窗</button>
-              <button type="button" class="more-button">更多+</button>
+
             </div>
             <div class="news-body">
               <div class="featured-news">
@@ -255,7 +272,6 @@ const services = [
           <div>
             <b>友情链接：</b>
             <button type="button">国家教育部</button><i>·</i>
-            <button type="button">江苏省教育厅</button><i>·</i>
             <button type="button">市教育信息化网</button><i>·</i>
             <button type="button">少先队工作网</button><i>·</i>
             <button type="button">市青少年活动中心</button>
@@ -494,11 +510,25 @@ const services = [
   background: var(--blue-soft);
 }
 
+.hero-image.clickable {
+  cursor: pointer;
+}
+
+.hero-image.clickable:focus-visible {
+  outline: 3px solid #aac7ff;
+  outline-offset: -3px;
+}
+
 .hero-image > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   animation: focus-slide-in 0.45s ease-out;
+  transition: transform 0.25s ease;
+}
+
+.hero-image.clickable:hover > img {
+  transform: scale(1.015);
 }
 
 @keyframes focus-slide-in {

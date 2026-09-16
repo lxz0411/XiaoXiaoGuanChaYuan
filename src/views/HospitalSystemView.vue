@@ -36,7 +36,7 @@ onMounted(async () => {
           <span>Hospital Information System</span>
         </div>
       </div>
-      <div class="meta">当前用户：林雨晴　　科室：儿童神经内科　　日期：2014-05-02</div>
+      <div class="meta">当前用户：林雨晴　　科室：儿童神经内科　　日期：2014-09-15</div>
       <!-- <nav>
         <img :src="icons('密码')" alt="">修改密码　
         <img :src="icons('帮助')" alt="">帮助　
@@ -59,7 +59,7 @@ onMounted(async () => {
     <main>
       <div class="tab">门诊患者列表</div>
       <div class="toolbar">
-        日期：<input value="2014-05-02">
+        日期：<input value="2014-09-15">
        　科室：<select><option>儿童神经内科</option></select>
        　医生：<select><option>林雨晴</option></select>
         <button>查询</button>
