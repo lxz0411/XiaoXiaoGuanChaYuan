@@ -1,6 +1,8 @@
 <script setup>
-import { ref } from 'vue'
+import { nextTick, onBeforeUnmount, ref } from 'vue'
 import castleAdventure from '../../素材/少儿频道页/城堡奇遇记.jpg'
+import leafJourneyVideo from '../../素材/少儿频道页/一片叶子的旅行.mp4'
+import observerPoster from '../../素材/少儿频道页/小小观察员.png'
 import frogUnderLotus from '../../素材/少儿频道页/荷叶下的小青蛙.png'
 import forestAdventure from '../../素材/少儿频道页/金龟子森林历险记.png'
 import futureCity from '../../素材/少儿频道页/未来城市快线.png'
@@ -11,13 +13,18 @@ import craneWish from '../../素材/少儿频道页/千纸鹤的心愿.png'
 import smilingSun from '../../素材/少儿频道页/太阳公公笑了.png'
 
 const isPlaying = ref(false)
+const isReplayMode = ref(false)
+const trialEnded = ref(false)
+const showReplayNotice = ref(false)
+const videoPlayer = ref(null)
 const activeEpisode = ref(12)
+let replayNoticeTimer
 
 const schedule = [
-  { time: '08:30', title: '《七巧板》开心乐园', status: '回放', played: true },
-  { time: '12:00', title: '《动画城》神秘剧场', status: '回放', played: true },
-  { time: '17:30', title: '《小小观察员》', note: '第12集　一片叶子的旅行', status: '回放', played: true },
-  { time: '18:00', title: '《大风车》金龟子城堡奇遇记', status: '直播中', current: true },
+  { time: '08:30', title: '《七巧板》开心乐园', status: '回放', played: true, replay: 'generating' },
+  { time: '12:00', title: '《动画城》神秘剧场', status: '回放', played: true, replay: 'generating' },
+  { time: '17:30', title: '《小小观察员》', note: '第12集　一片叶子的旅行', status: '回放', played: true, replay: 'leaf-journey' },
+  { time: '18:00', title: '《大风车》金龟子城堡奇遇记', status: '直播中', current: true, replay: 'live' },
   { time: '19:30', title: '《熊出没之夺宝熊兵》暑期特映', status: '预约' },
   { time: '20:30', title: '《智慧树》周末特别派对', status: '预约' },
 ]
@@ -35,10 +42,67 @@ const artworks = [
   { title: '《2020未来城市快线》', author: '陈浩（11岁）', city: '广州', votes: '9,840', badge: '创想之星', image: futureCity },
   { title: '《荷叶下的小青蛙》', author: '王思琪（7岁）', city: '武汉', votes: '8,720', badge: '优秀奖', image: frogUnderLotus },
 ]
+
+async function playReplay(program) {
+  if (program.replay === 'live') {
+    videoPlayer.value?.pause()
+    isReplayMode.value = false
+    trialEnded.value = false
+    isPlaying.value = false
+    return
+  }
+
+  if (program.replay === 'generating') {
+    window.clearTimeout(replayNoticeTimer)
+    showReplayNotice.value = false
+    await nextTick()
+    showReplayNotice.value = true
+    replayNoticeTimer = window.setTimeout(() => {
+      showReplayNotice.value = false
+    }, 2600)
+    return
+  }
+
+  if (program.replay !== 'leaf-journey') return
+
+  isReplayMode.value = true
+  trialEnded.value = false
+  isPlaying.value = false
+  await nextTick()
+
+  videoPlayer.value.pause()
+  videoPlayer.value.currentTime = 0
+}
+
+function enforceTrialLimit() {
+  if (!videoPlayer.value || videoPlayer.value.currentTime < 15) return
+
+  videoPlayer.value.pause()
+  videoPlayer.value.currentTime = 15
+  isPlaying.value = false
+  trialEnded.value = true
+}
+
+function replayTrial() {
+  if (!videoPlayer.value) return
+
+  trialEnded.value = false
+  videoPlayer.value.currentTime = 0
+  videoPlayer.value.play()
+}
+
+onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
 </script>
 
 <template>
   <div class="youth-channel-page">
+    <Transition name="replay-notice">
+      <div v-if="showReplayNotice" class="replay-notice" role="status">
+        <i>◷</i>
+        <span>回放生成中</span>
+      </div>
+    </Transition>
+
     <header class="channel-header">
       <div class="utility-strip">
         <div class="header-width">
@@ -91,15 +155,34 @@ const artworks = [
       <section class="broadcast-grid">
         <div class="video-panel">
           <div class="video-heading">
-            <span>正在热播</span>
-            <strong>《大风车》金龟子城堡奇遇记 · 勇气、友谊与探索</strong>
-            <i>● HTML5直播</i>
+            <span>{{ isReplayMode ? '节目回放' : '正在热播' }}</span>
+            <strong>
+              {{ isReplayMode
+                ? '《小小观察员》第12集 · 一片叶子的旅行'
+                : '《大风车》金龟子城堡奇遇记 · 勇气、友谊与探索'
+              }}
+            </strong>
+            <i>● {{ isReplayMode ? 'HTML5回放' : 'HTML5直播' }}</i>
             <b>1080P</b>
           </div>
 
           <div class="video-screen">
-            <img :src="castleAdventure" alt="《大风车》金龟子城堡奇遇记节目画面">
+            <video
+              v-if="isReplayMode"
+              ref="videoPlayer"
+              :src="leafJourneyVideo"
+              :poster="observerPoster"
+              controls
+              playsinline
+              preload="metadata"
+              @play="isPlaying = true"
+              @pause="isPlaying = false"
+              @timeupdate="enforceTrialLimit"
+              @seeking="enforceTrialLimit"
+            ></video>
+            <img v-else :src="castleAdventure" alt="《大风车》金龟子城堡奇遇记节目画面">
             <button
+              v-if="!isReplayMode"
               type="button"
               class="play-button"
               :aria-label="isPlaying ? '暂停播放' : '开始播放'"
@@ -107,10 +190,16 @@ const artworks = [
             >
               {{ isPlaying ? 'Ⅱ' : '▶' }}
             </button>
-            <div v-if="isPlaying" class="playing-tip">模拟播放中</div>
+            <div v-if="isPlaying && !isReplayMode" class="playing-tip">模拟播放中</div>
+            <div v-if="isReplayMode" class="trial-badge">试看15s，开启会员解锁全集回放</div>
+            <div v-if="trialEnded" class="member-overlay">
+              <strong>试看已结束</strong>
+              <span>开启会员即可解锁全集回放</span>
+              <button type="button" @click="replayTrial">重新试看</button>
+            </div>
           </div>
 
-          <div class="player-controls">
+          <div v-if="!isReplayMode" class="player-controls">
             <button type="button" @click="isPlaying = !isPlaying">{{ isPlaying ? 'Ⅱ' : '▶' }}</button>
             <span>08:24 / 20:00</span>
             <div class="progress"><i></i></div>
@@ -150,7 +239,13 @@ const artworks = [
                 <strong>{{ program.title }}</strong>
                 <small v-if="program.note">{{ program.note }}</small>
               </div>
-              <span>{{ program.status }}</span>
+              <button
+                type="button"
+                :class="{ actionable: program.replay }"
+                @click="playReplay(program)"
+              >
+                {{ program.status }}
+              </button>
             </li>
           </ul>
           <div class="signal-card">
@@ -270,6 +365,43 @@ const artworks = [
   background: #f1f5f9;
   color: #26313b;
   font-family: Arial, "Microsoft YaHei", sans-serif;
+}
+
+.replay-notice {
+  min-width: 190px;
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 22px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 7px;
+  background: rgba(28, 39, 53, 0.96);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-size: 15px;
+  transform: translateX(-50%);
+}
+
+.replay-notice i {
+  color: #ff8b45;
+  font-size: 19px;
+  font-style: normal;
+}
+
+.replay-notice-enter-active,
+.replay-notice-leave-active {
+  transition: transform 360ms ease, opacity 360ms ease;
+}
+
+.replay-notice-enter-from,
+.replay-notice-leave-to {
+  opacity: 0;
+  transform: translate(-50%, calc(-100% - 30px));
 }
 
 .header-width {
@@ -504,11 +636,16 @@ const artworks = [
   background: #111;
 }
 
-.video-screen > img {
+.video-screen > img,
+.video-screen > video {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
+}
+
+.video-screen > video {
+  background: #000;
 }
 
 .play-button {
@@ -537,6 +674,51 @@ const artworks = [
   background: rgba(0, 0, 0, 0.68);
   color: #fff;
   font-size: 13px;
+}
+
+.trial-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  padding: 7px 12px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.72);
+  color: #ffd3bd;
+  font-size: 12px;
+  pointer-events: none;
+}
+
+.member-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(7, 12, 18, 0.82);
+  color: #fff;
+}
+
+.member-overlay strong {
+  font-size: 22px;
+}
+
+.member-overlay span {
+  margin-top: 8px;
+  color: #d8dee3;
+  font-size: 14px;
+}
+
+.member-overlay button {
+  margin-top: 18px;
+  padding: 8px 20px;
+  border: 1px solid #ff7542;
+  border-radius: 4px;
+  background: #ff6534;
+  color: #fff;
+  cursor: pointer;
 }
 
 .player-controls {
@@ -692,15 +874,22 @@ const artworks = [
   font-size: 11px;
 }
 
-.schedule-panel li > span {
+.schedule-panel li > button {
   padding: 4px 6px;
   border: 1px solid #c8eafa;
   border-radius: 4px;
+  background: #fff;
   color: #32afe4;
   font-size: 11px;
+  pointer-events: none;
 }
 
-.schedule-panel li.current > span {
+.schedule-panel li > button.actionable {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.schedule-panel li.current > button {
   border-color: #ff7040;
   background: #ff7040;
   color: #fff;
