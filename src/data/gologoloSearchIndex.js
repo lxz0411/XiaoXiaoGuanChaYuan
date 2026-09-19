@@ -30,6 +30,16 @@ const searchEntries = [
     ],
   },
   {
+    keywords: ['2011年澄江市少儿绘画奖', '澄江市少儿绘画奖', '少儿绘画奖', '周子昂', '李然'],
+    results: [
+      {
+        title: '2011年澄江市少儿绘画奖揭晓',
+        description: '全市少年儿童用画笔描绘美丽家园，周子昂等学生在比赛中获奖。',
+        href: '#/news/children-painting-award-2011',
+      },
+    ],
+  },
+  {
     keywords: ['UCCA当代艺术空间', '无界之象', '2014当代绘画艺术展', '画展', '李然'],
     results: [
       {
@@ -46,6 +56,16 @@ const searchEntries = [
         title: '青年艺术家李然于家中离世 曾因作品“匿名者”引发争议',
         description: '澄江市青年艺术家李然于家中离世，生前作品及创作理念曾在艺术界引发讨论。',
         href: '#/news/li-ran-death',
+      },
+    ],
+  },
+  {
+    keywords: ['李然', '李然纪念展', '凝视与回响', '公益纪念展览', '凝视与回响'],
+    results: [
+      {
+        title: '李然：凝视与回响——特别纪念展',
+        description: '回顾青年艺术家李然从童年习作到晚期创作的作品与文献。',
+        href: '#/art-display/li-ran-memorial',
       },
     ],
   },

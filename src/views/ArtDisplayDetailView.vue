@@ -1,38 +1,21 @@
 <script setup>
 import { computed } from 'vue'
+import artworks from '../data/artDisplayDetails.json'
 import anonymous from '../../素材/画展页/匿名者.png'
 import structureAndGaze from '../../素材/画展页/结构与凝视.png'
 import wildernessAndEcho from '../../素材/画展页/旷野与回声的切面.png'
 
-const artworks = {
-  'structure-and-gaze': {
-    title: '《结构与凝视 No.7》',
-    englishTitle: 'Structure and Gaze No. 7, 2014',
-    artist: '林越',
-    englishArtist: 'Lin Yue',
-    image: structureAndGaze,
-    description: '在冷峻的蓝灰与厚重白色的几何交叠中，重构摩擦色块与空间视觉的静默张力。',
-  },
-  'wilderness-and-echo': {
-    title: '《旷野与回声的切面》',
-    englishTitle: 'Wilderness and the Section of Echoes, 2014',
-    artist: '周砚',
-    englishArtist: 'Zhou Yan',
-    image: wildernessAndEcho,
-    description: '灰白色地景在层层刮擦与覆盖中延伸，微弱的暖色如同远方回声，留存于沉寂旷野的断面之中。',
-  },
-  anonymous: {
-    title: '《匿名者》',
-    englishTitle: 'The Anonymous, 2014',
-    artist: '李然',
-    englishArtist: 'Li Ran',
-    image: anonymous,
-    description: '暮色中的城市明亮而辽阔，近景人物却隐去面目，以匿名的相聚映照现代都市中既亲近又疏离的关系。',
-  },
+const imageMap = {
+  structureAndGaze,
+  wildernessAndEcho,
+  anonymous,
 }
 
 const artworkId = window.location.hash.split('/').pop()
-const artwork = computed(() => artworks[artworkId] || artworks['structure-and-gaze'])
+const artwork = computed(() => {
+  const data = artworks[artworkId] || artworks['structure-and-gaze']
+  return { ...data, image: imageMap[data.image] }
+})
 </script>
 
 <template>

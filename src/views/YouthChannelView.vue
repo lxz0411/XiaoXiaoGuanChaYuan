@@ -6,7 +6,7 @@ import observerPoster from '../../素材/少儿频道页/小小观察员.png'
 import frogUnderLotus from '../../素材/少儿频道页/荷叶下的小青蛙.png'
 import forestAdventure from '../../素材/少儿频道页/金龟子森林历险记.png'
 import futureCity from '../../素材/少儿频道页/未来城市快线.png'
-import monkeyAdventure from '../../素材/少儿频道页/小猴淘淘奇幻记.png'
+import spotTheDifference from '../../素材/少儿频道页/找不同.png'
 import submarineAdventure from '../../素材/少儿频道页/潜艇总动员.png'
 import pinyinAdventure from '../../素材/少儿频道页/快乐拼音小精灵.png'
 import craneWish from '../../素材/少儿频道页/千纸鹤的心愿.png'
@@ -22,18 +22,25 @@ let replayNoticeTimer
 
 const schedule = [
   { time: '08:30', title: '《七巧板》开心乐园', status: '回放', played: true, replay: 'generating' },
-  { time: '12:00', title: '《动画城》神秘剧场', status: '回放', played: true, replay: 'generating' },
+  { time: '12:00', title: '《动画城》神秘剧场', note: '海底小纵队 第二季', status: '回放', played: true, replay: 'generating' },
   { time: '17:30', title: '《小小观察员》', note: '第12集　一片叶子的旅行', status: '回放', played: true, replay: 'leaf-journey' },
-  { time: '18:00', title: '《大风车》金龟子城堡奇遇记', status: '直播中', current: true, replay: 'live' },
-  { time: '19:30', title: '《熊出没之夺宝熊兵》暑期特映', status: '预约' },
-  { time: '20:30', title: '《智慧树》周末特别派对', status: '预约' },
+  { time: '18:00', title: '《大风车》城堡奇遇记', status: '直播中', current: true, replay: 'live' },
+  { time: '19:30', title: '《虎出没之虎口夺宝》暑期特映', status: '预约' },
+  { time: '20:30', title: '《智慧森林》周末特别派对', status: '预约' },
 ]
 
 const hotPrograms = [
-  { title: '金龟子森林大冒险 2014', category: '少儿益智 · 森林奇遇', score: '9.6', views: '820.5万', image: forestAdventure },
-  { title: '小猴淘淘月亮湖大冒险', category: '寓言故事 · 亲子必看', score: '9.4', views: '640.1万', image: monkeyAdventure },
-  { title: '拼音王国大闯关 动画版', category: '幼小衔接 · 语言启蒙', score: '9.8', views: '1,290万', image: pinyinAdventure },
-  { title: '海底探险小潜艇 电影版', category: '海洋科普 · 3D冒险', score: '9.5', views: '942万', image: submarineAdventure },
+  { title: '森林大冒险', category: '少儿益智 · 森林奇遇', score: '9.6', views: '820.5万', image: forestAdventure },
+  {
+    title: '找不同大挑战',
+    category: '观察游戏 · 益智挑战',
+    score: '9.4',
+    views: '640.1万',
+    image: spotTheDifference,
+    href: '#/youth-channel/games/spot-the-difference',
+  },
+  { title: '拼音王国大闯关', category: '幼小衔接 · 语言启蒙', score: '9.8', views: '1,290万', image: pinyinAdventure },
+  { title: '海底探险小潜艇', category: '海洋科普 · 3D冒险', score: '9.5', views: '942万', image: submarineAdventure },
 ]
 
 const artworks = [
@@ -126,7 +133,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
           </div>
 
           <div class="channel-search">
-            <span>搜索：熊出没　、熊孩子与灰太狼、大头儿子...</span>
+            <span>搜索：虎出没、吹丰机与洗依机、大头爸爸与小头儿子...</span>
             <button type="button">⌕ 搜索</button>
           </div>
 
@@ -159,7 +166,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
             <strong>
               {{ isReplayMode
                 ? '《小小观察员》第12集 · 一片叶子的旅行'
-                : '《大风车》金龟子城堡奇遇记 · 勇气、友谊与探索'
+                : '《大风车》城堡奇遇记 · 勇气、友谊与探索'
               }}
             </strong>
             <i>● {{ isReplayMode ? 'HTML5回放' : 'HTML5直播' }}</i>
@@ -180,7 +187,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
               @timeupdate="enforceTrialLimit"
               @seeking="enforceTrialLimit"
             ></video>
-            <img v-else :src="castleAdventure" alt="《大风车》金龟子城堡奇遇记节目画面">
+            <img v-else :src="castleAdventure" alt="《大风车》城堡奇遇记节目画面">
             <button
               v-if="!isReplayMode"
               type="button"
@@ -263,19 +270,22 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
         <div class="section-heading">
           <div>
             <i class="blue"></i>
-            <h2>热门动画放映厅</h2>
-            <span>2014暑期档全网首发超清国语配音</span>
+            <h2>益智游戏</h2>
+            <span>全新flash益智小游戏上线，寓教于乐</span>
           </div>
-          <nav>
-            <button type="button" class="active">全部热播</button>
-            <button type="button">冒险热血</button>
-            <button type="button">低幼早教</button>
-            <button type="button">经典剧场版</button>
-          </nav>
         </div>
 
         <div class="program-grid">
-          <article v-for="program in hotPrograms" :key="program.title" class="program-card">
+          <component
+            :is="program.href ? 'a' : 'article'"
+            v-for="program in hotPrograms"
+            :key="program.title"
+            class="program-card"
+            :class="{ clickable: program.href }"
+            :href="program.href"
+            :target="program.href ? '_blank' : undefined"
+            :rel="program.href ? 'noopener noreferrer' : undefined"
+          >
             <div class="thumb">
               <img :src="program.image" :alt="program.title">
               <span>1080P</span>
@@ -286,7 +296,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
             </div>
             <p>{{ program.category }}</p>
             <small>◉ {{ program.views }}</small>
-          </article>
+          </component>
         </div>
       </section>
 
@@ -1013,6 +1023,15 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
 .program-card,
 .artwork-card {
   min-width: 0;
+}
+
+.program-card {
+  color: inherit;
+  text-decoration: none;
+}
+
+.program-card.clickable {
+  cursor: pointer;
 }
 
 .thumb,
