@@ -5,6 +5,7 @@ import ArtDisplayView from './views/ArtDisplayView.vue'
 import ChengJiangEveningNewsView from './views/ChengJiangEveningNewsView.vue'
 import ChengJiangSchoolNewsView from './views/ChengJiangSchoolNewsView.vue'
 import ChengJiangSchoolView from './views/ChengJiangSchoolView.vue'
+import ChenHuiBlogView from './views/ChenHuiBlogView.vue'
 import GologoloSearchView from './views/GologoloSearchView.vue'
 import HospitalSystemView from './views/HospitalSystemView.vue'
 import IntroView from './views/IntroView.vue'
@@ -24,6 +25,7 @@ const routes = {
   '/art-display/li-ran-memorial': { view: LiRanMemorialExhibitionView, title: '李然：凝视与回响 - 特别纪念展' },
   '/hospital': { view: HospitalSystemView, title: '澄江市儿童医院信息管理系统' },
   '/gologolo': { view: GologoloSearchView, title: 'Gologolo' },
+  '/blog': { view: ChenHuiBlogView, title: '陈晖的艺术手记与生活随笔' },
   '/news/piano-competition': { view: ChengJiangEveningNewsView, title: '第三届少儿钢琴大赛圆满结束 - 澄江晚报' },
   '/news/children-painting-award-2011': { view: ChengJiangEveningNewsView, title: '2011年澄江市少儿绘画奖揭晓 - 澄江晚报' },
   '/news/li-ran-death': { view: ChengJiangEveningNewsView, title: '青年艺术家李然于家中离世 - 澄江晚报' },

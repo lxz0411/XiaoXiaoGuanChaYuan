@@ -1,7 +1,9 @@
 <script setup>
 import { nextTick, onBeforeUnmount, ref } from 'vue'
+import FileDropReveal from '../components/FileDropReveal.vue'
 import castleAdventure from '../../素材/少儿频道页/城堡奇遇记.jpg'
 import leafJourneyVideo from '../../素材/少儿频道页/一片叶子的旅行.mp4'
+import leafJourneyRevealVideo from '../../素材/少儿频道页/一片叶子的旅行-底层.mp4'
 import observerPoster from '../../素材/少儿频道页/小小观察员.png'
 import frogUnderLotus from '../../素材/少儿频道页/荷叶下的小青蛙.png'
 import forestAdventure from '../../素材/少儿频道页/金龟子森林历险记.png'
@@ -17,6 +19,7 @@ const isReplayMode = ref(false)
 const trialEnded = ref(false)
 const showReplayNotice = ref(false)
 const videoPlayer = ref(null)
+const revealVideoPlayer = ref(null)
 const activeEpisode = ref(12)
 let replayNoticeTimer
 
@@ -79,6 +82,45 @@ async function playReplay(program) {
 
   videoPlayer.value.pause()
   videoPlayer.value.currentTime = 0
+  resetRevealVideo()
+}
+
+function syncRevealVideo(force = false) {
+  const source = videoPlayer.value
+  const reveal = revealVideoPlayer.value
+  if (!source || !reveal || reveal.readyState < 1) return
+
+  if (force || Math.abs(reveal.currentTime - source.currentTime) > 0.12) {
+    reveal.currentTime = source.currentTime
+  }
+}
+
+function resetRevealVideo() {
+  const reveal = revealVideoPlayer.value
+  if (!reveal) return
+
+  reveal.pause()
+  if (reveal.readyState >= 1) reveal.currentTime = videoPlayer.value?.currentTime || 0
+}
+
+function handleReplayPlay() {
+  isPlaying.value = true
+  revealVideoPlayer.value?.play().catch(() => {})
+}
+
+function handleReplayPause() {
+  isPlaying.value = false
+  revealVideoPlayer.value?.pause()
+}
+
+function handleReplayTimeUpdate() {
+  enforceTrialLimit()
+  syncRevealVideo()
+}
+
+function handleReplaySeeking() {
+  enforceTrialLimit()
+  syncRevealVideo(true)
 }
 
 function enforceTrialLimit() {
@@ -103,6 +145,8 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
 
 <template>
   <div class="youth-channel-page">
+    <FileDropReveal />
+
     <Transition name="replay-notice">
       <div v-if="showReplayNotice" class="replay-notice" role="status">
         <i>◷</i>
@@ -173,7 +217,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
             <b>1080P</b>
           </div>
 
-          <div class="video-screen">
+          <div class="video-screen" data-reveal-target="leaf-journey-video">
             <video
               v-if="isReplayMode"
               ref="videoPlayer"
@@ -182,10 +226,22 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
               controls
               playsinline
               preload="metadata"
-              @play="isPlaying = true"
-              @pause="isPlaying = false"
-              @timeupdate="enforceTrialLimit"
-              @seeking="enforceTrialLimit"
+              @play="handleReplayPlay"
+              @pause="handleReplayPause"
+              @timeupdate="handleReplayTimeUpdate"
+              @seeking="handleReplaySeeking"
+            ></video>
+            <video
+              v-if="isReplayMode"
+              ref="revealVideoPlayer"
+              class="decoded-video-layer"
+              data-reveal-content
+              :src="leafJourneyRevealVideo"
+              muted
+              playsinline
+              preload="metadata"
+              aria-hidden="true"
+              @loadedmetadata="syncRevealVideo(true)"
             ></video>
             <img v-else :src="castleAdventure" alt="《大风车》城堡奇遇记节目画面">
             <button
@@ -656,6 +712,19 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
 
 .video-screen > video {
   background: #000;
+}
+
+.video-screen > video:not(.decoded-video-layer) {
+  position: relative;
+  z-index: 0;
+}
+
+.video-screen > .decoded-video-layer {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .play-button {

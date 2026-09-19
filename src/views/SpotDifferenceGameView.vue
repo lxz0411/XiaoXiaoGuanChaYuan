@@ -123,7 +123,10 @@ onBeforeUnmount(() => {
     </header>
 
     <main class="game-shell">
-      <h2 class="page-title">找不同大挑战</h2>
+      <div class="page-title-row">
+        <h2 class="page-title">找不同大挑战</h2>
+        <span class="page-author">作者：陈晖</span>
+      </div>
 
       <section class="status-panel">
         <div class="progress-copy">
@@ -378,10 +381,25 @@ a {
 }
 
 .page-title {
-  margin: 0 0 20px;
+  margin: 0;
   color: #263943;
   font-size: 36px;
   line-height: 1.2;
+}
+
+.page-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.page-author {
+  flex-shrink: 0;
+  color: #7b8a92;
+  font-size: 14px;
+  white-space: nowrap;
 }
 
 .status-panel {
