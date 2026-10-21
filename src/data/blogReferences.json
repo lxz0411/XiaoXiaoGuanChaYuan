@@ -1,0 +1,76 @@
+{
+  "pubmed": {
+    "title": {
+      "en": "Photosensitive seizures provoked while viewing \"pocket monsters,\" a made-for-television animation program in Japan",
+      "zh": "观看日本电视动画《精灵宝可梦》时诱发的光敏性发作"
+    },
+    "authors": "S Ishida, Y Yamashita, T Matsuishi, M Ohshima, H Ohshima, H Kato, H Maeda",
+    "affiliation": { "en": "Kurume University, Japan", "zh": "日本久留米大学" },
+    "sections": [
+      {
+        "label": { "en": "PURPOSE", "zh": "目的" },
+        "text": {
+          "en": "Four cases were examined after viewers experienced seizures during the same televised cartoon episode.",
+          "zh": "研究记录了四名观看同一集电视动画时出现发作的患者。"
+        }
+      },
+      {
+        "label": { "en": "METHODS", "zh": "方法" },
+        "text": {
+          "en": "The researchers assessed clinical histories, EEG responses and the programme's visual presentation.",
+          "zh": "研究者评估了临床病史、脑电图反应及节目的视觉呈现。"
+        }
+      },
+      {
+        "label": { "en": "RESULTS", "zh": "结果" },
+        "text": {
+          "en": "Two patients received different epilepsy diagnoses. For the other two, a first seizure did not establish epilepsy. Responses to testing varied; rapid colour changes were implicated in the incident.",
+          "zh": "两名患者被诊断为不同类型的癫痫；另两名仅凭首次发作尚不能确诊。检测反应存在差异，事件被认为与快速色彩变化有关。"
+        }
+      },
+      {
+        "label": { "en": "CONCLUSIONS", "zh": "结论" },
+        "text": {
+          "en": "The authors called for children's television production safeguards and more consistent photosensitivity testing.",
+          "zh": "作者呼吁规范儿童电视制作，并使光敏性检测更为一致。"
+        }
+      }
+    ]
+  },
+  "pace": {
+    "title": {
+      "en": "Prohibiting the marketing and use of the “Mosquito” youth dispersal device",
+      "zh": "禁止销售及使用“Mosquito”青少年驱散装置"
+    },
+    "sections": [
+      {
+        "number": "1–4",
+        "text": {
+          "en": "The Assembly considered a device that drives young people away with high-frequency sound. Its effects raised concerns about discrimination and children's health.",
+          "zh": "大会审议了一种利用高频声音驱散年轻人的装置，关注其涉及的歧视与儿童健康问题。"
+        }
+      },
+      {
+        "number": "3, 5–6",
+        "text": {
+          "en": "Many younger listeners find the sound distressing or painful, while older adults may not notice it. Young people are displaced regardless of their conduct.",
+          "zh": "许多年轻听者感到烦扰甚至疼痛，年长者却可能察觉不到。年轻人无论行为如何，都可能被迫离开。"
+        }
+      },
+      {
+        "number": "7–8",
+        "text": {
+          "en": "The text reported no established hearing-loss risk at that time, but identified unanswered health questions and sought further testing and precaution.",
+          "zh": "文件称当时研究未显示听力损失风险，但其他健康问题仍未明确，因而要求进一步检测并采取预防措施。"
+        }
+      },
+      {
+        "number": "15–16",
+        "text": {
+          "en": "It urged restrictions on these devices and better youth facilities. This recommendation was an appeal for action, rather than an enacted Europe-wide ban.",
+          "zh": "文件建议限制此类装置，并改善青年活动设施。这是要求采取行动的建议，并非已生效的全欧洲禁令。"
+        }
+      }
+    ]
+  }
+}

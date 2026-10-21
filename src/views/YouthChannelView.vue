@@ -14,6 +14,9 @@ import pinyinAdventure from '../../素材/少儿频道页/快乐拼音小精灵.
 import craneWish from '../../素材/少儿频道页/千纸鹤的心愿.png'
 import smilingSun from '../../素材/少儿频道页/太阳公公笑了.png'
 
+const icons = Object.fromEntries(Object.entries(import.meta.glob('../../素材/少儿频道页/icons/*.png', { eager: true, import: 'default' }))
+  .map(([file, url]) => [file.split('/').pop().replace('.png', ''), url]))
+
 const isPlaying = ref(false)
 const isReplayMode = ref(false)
 const trialEnded = ref(false)
@@ -149,7 +152,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
 
     <Transition name="replay-notice">
       <div v-if="showReplayNotice" class="replay-notice" role="status">
-        <i>◷</i>
+        <img class="channel-icon notice-icon" :src="icons.clock" alt="">
         <span>回放生成中</span>
       </div>
     </Transition>
@@ -157,11 +160,11 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
     <header class="channel-header">
       <div class="utility-strip">
         <div class="header-width">
-          <span>▱ 阳光少儿多媒体网络电视台（CH-14 HD）</span>
-          <span>▶ 24小时儿童卫视直播 · 全国1080P低延时</span>
+          <span><img class="channel-icon" :src="icons.television" alt="">阳光少儿多媒体网络电视台（CH-14 HD）</span>
+          <span><img class="channel-icon" :src="icons['play-muted']" alt="">24小时儿童卫视直播 · 全国1080P低延时</span>
           <div>
-            <button type="button">▯ 少儿客户端APP</button>
-            <button type="button">◉ 播放记录</button>
+            <button type="button"><img class="channel-icon" :src="icons.mobile" alt="">少儿客户端APP</button>
+            <button type="button"><img class="channel-icon" :src="icons.history" alt="">播放记录</button>
           </div>
         </div>
       </div>
@@ -169,7 +172,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
       <div class="brand-strip">
         <div class="header-width">
           <div class="channel-brand">
-            <div class="sun-logo">☀</div>
+            <div class="sun-logo"><img :src="icons.sun" alt=""></div>
             <div>
               <h1>阳光少儿 <b>TV-HD</b></h1>
               <p>KIDS CCTV.CN 2014</p>
@@ -178,7 +181,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
 
           <div class="channel-search">
             <span>搜索：虎出没、吹丰机与洗依机、大头爸爸与小头儿子...</span>
-            <button type="button">⌕ 搜索</button>
+            <button type="button"><img class="channel-icon" :src="icons.search" alt="">搜索</button>
           </div>
 
           <div class="header-actions">
@@ -190,7 +193,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
 
       <nav class="channel-nav">
         <div class="header-width">
-          <button type="button" class="active">⌂ 首页</button>
+          <button type="button" class="active"><img class="channel-icon" :src="icons.home" alt="">首页</button>
           <button type="button">动画片库</button>
           <button type="button">少儿影院 <i>1080P</i></button>
           <button type="button">益智小游戏</button>
@@ -213,7 +216,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
                 : '《大风车》城堡奇遇记 · 勇气、友谊与探索'
               }}
             </strong>
-            <i>● {{ isReplayMode ? 'HTML5回放' : 'HTML5直播' }}</i>
+            <i><img class="channel-icon" :src="icons.live" alt="">{{ isReplayMode ? 'HTML5回放' : 'HTML5直播' }}</i>
             <b>1080P</b>
           </div>
 
@@ -251,7 +254,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
               :aria-label="isPlaying ? '暂停播放' : '开始播放'"
               @click="isPlaying = !isPlaying"
             >
-              {{ isPlaying ? 'Ⅱ' : '▶' }}
+              <img :src="isPlaying ? icons.pause : icons.play" alt="">
             </button>
             <div v-if="isPlaying && !isReplayMode" class="playing-tip">模拟播放中</div>
             <div v-if="isReplayMode" class="trial-badge">试看15s，开启会员解锁全集回放</div>
@@ -263,12 +266,12 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
           </div>
 
           <div v-if="!isReplayMode" class="player-controls">
-            <button type="button" @click="isPlaying = !isPlaying">{{ isPlaying ? 'Ⅱ' : '▶' }}</button>
+            <button type="button" :aria-label="isPlaying ? '暂停播放' : '开始播放'" @click="isPlaying = !isPlaying"><img class="channel-icon" :src="isPlaying ? icons.pause : icons.play" alt=""></button>
             <span>08:24 / 20:00</span>
             <div class="progress"><i></i></div>
-            <span>🔊</span>
+            <span><img class="channel-icon" :src="icons.volume" alt="音量"></span>
             <span class="quality">1080P</span>
-            <span>⚙　⛶</span>
+            <span class="player-settings"><img class="channel-icon" :src="icons.settings" alt="设置"><img class="channel-icon" :src="icons.fullscreen" alt="全屏"></span>
           </div>
 
           <div class="episodes">
@@ -312,7 +315,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
             </li>
           </ul>
           <div class="signal-card">
-            <span>◔</span>
+            <img class="signal-icon" :src="icons.signal" alt="">
             <div>
               <strong>24小时少儿卫视高清直播</strong>
               <small>免费流畅 · 支持手机/平板投屏</small>
@@ -351,7 +354,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
               <b>{{ program.score }}</b>
             </div>
             <p>{{ program.category }}</p>
-            <small>◉ {{ program.views }}</small>
+            <small><img class="channel-icon" :src="icons.eye" alt="浏览量">{{ program.views }}</small>
           </component>
         </div>
       </section>
@@ -363,7 +366,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
             <h2>全国少儿才艺画摄影展（2014夏季展区）</h2>
             <span>展示阳光新一代小艺术家风采</span>
           </div>
-          <button type="button" class="upload-button">⇧ 我要上传作品</button>
+          <button type="button" class="upload-button"><img class="channel-icon" :src="icons.upload" alt="">我要上传作品</button>
         </div>
 
         <div class="artwork-grid">
@@ -375,14 +378,14 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
             <h3>{{ artwork.title }}</h3>
             <p>{{ artwork.city }}市{{ artwork.author }}</p>
             <div>
-              <small>▮▮▮ {{ artwork.votes }}</small>
-              <button type="button">♡ 给TA点赞</button>
+              <small><img class="channel-icon" :src="icons.chart" alt="票数">{{ artwork.votes }}</small>
+              <button type="button"><img class="channel-icon" :src="icons.heart" alt="">给TA点赞</button>
             </div>
           </article>
         </div>
       </section>
 
-      <section class="app-promo">
+      <!-- <section class="app-promo">
         <div class="phone-icon">▯</div>
         <div>
           <span>2014 全新移动版客户端</span>
@@ -396,7 +399,7 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
             <button type="button">▰　Android APK</button>
           </div>
         </div>
-      </section>
+      </section> -->
     </main>
 
     <footer class="channel-footer">
@@ -417,8 +420,8 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
         <p>国家广播电视总局网络视听许可证：01082014号　|　网络文化经营许可证：京网文[2014]0802-0024号</p>
         <p>© 2014 阳光少儿网络电视 版权所有　儿童上网安全提示：请在家长指导下合理安排观看时间</p>
         <div class="footer-status">
-          <span>● 中国互联网不良信息举报中心</span>
-          <span>◉ 全国网络少儿绿色认证</span>
+          <span><img class="channel-icon" :src="icons.report" alt="">中国互联网不良信息举报中心</span>
+          <span><img class="channel-icon" :src="icons.shield" alt="">全国网络少儿绿色认证</span>
         </div>
       </div>
     </footer>
@@ -431,6 +434,16 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
   background: #f1f5f9;
   color: #26313b;
   font-family: Arial, "Microsoft YaHei", sans-serif;
+}
+
+.channel-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  object-fit: contain;
+  vertical-align: -4px;
 }
 
 .replay-notice {
@@ -453,10 +466,10 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
   transform: translateX(-50%);
 }
 
-.replay-notice i {
-  color: #ff8b45;
-  font-size: 19px;
-  font-style: normal;
+.replay-notice .notice-icon {
+  width: 23px;
+  height: 23px;
+  margin-right: 0;
 }
 
 .replay-notice-enter-active,
@@ -528,10 +541,13 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
   height: 43px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: #ff9c20;
-  color: #fff;
-  font-size: 27px;
+  flex-shrink: 0;
+}
+
+.sun-logo img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
 }
 
 .channel-brand h1 {
@@ -744,6 +760,12 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
   cursor: pointer;
 }
 
+.play-button img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
 .playing-tip {
   position: absolute;
   top: 12px;
@@ -812,10 +834,24 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
 }
 
 .player-controls button {
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 28px;
   border: 0;
   background: transparent;
   color: #fff;
   cursor: pointer;
+}
+
+.player-controls .channel-icon {
+  margin-right: 0;
+}
+
+.player-settings {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .progress {
@@ -985,9 +1021,11 @@ onBeforeUnmount(() => window.clearTimeout(replayNoticeTimer))
   background: #f4fbfe;
 }
 
-.signal-card > span {
-  color: #35aedd;
-  font-size: 24px;
+.signal-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  object-fit: contain;
 }
 
 .signal-card div {

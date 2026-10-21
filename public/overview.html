@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>页面总览</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 48px 24px 72px;
+        background: #101010;
+        color: #e9e9e9;
+        font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+        line-height: 1.6;
+      }
+
+      .wrap {
+        width: min(1000px, 100%);
+        margin: 0 auto;
+      }
+
+      header {
+        margin-bottom: 40px;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-family: "Noto Serif SC", "Songti SC", SimSun, serif;
+        font-size: 26px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+      }
+
+      .hint {
+        margin: 0;
+        color: #777;
+        font-size: 13px;
+      }
+
+      section {
+        margin-bottom: 32px;
+      }
+
+      h2 {
+        margin: 0 0 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #262626;
+        color: #9a9a9a;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        gap: 6px;
+      }
+
+      a {
+        display: block;
+        padding: 9px 14px;
+        border: 1px solid #222;
+        border-radius: 8px;
+        color: #cfcfcf;
+        font-size: 15px;
+        text-decoration: none;
+        transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+      }
+
+      a:hover {
+        border-color: #3a3a3a;
+        background: #191919;
+        color: #fff;
+      }
+
+      a code {
+        display: block;
+        margin-top: 2px;
+        color: #6b6b6b;
+        font-size: 12px;
+        font-family: ui-monospace, Consolas, monospace;
+      }
+
+      .child {
+        margin-left: 18px;
+        padding-left: 14px;
+        border-left: 1px solid #1f1f1f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <h1>页面总览</h1>
+        <p class="hint">点击任意条目在新标签页中打开对应页面。</p>
+      </header>
+
+      <section>
+        <h2>主线</h2>
+        <ul>
+          <li><a href="./index.html#/" target="_blank" rel="noopener noreferrer">引入页（儿童医院调查事件）<code>#/</code></a></li>
+          <li><a href="./index.html#/hospital" target="_blank" rel="noopener noreferrer">澄江市儿童医院信息管理系统<code>#/hospital</code></a></li>
+          <li><a href="./index.html#/gologolo" target="_blank" rel="noopener noreferrer">Gologolo 搜索引擎<code>#/gologolo</code></a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>艺术展</h2>
+        <ul>
+          <li><a href="./index.html#/art-display" target="_blank" rel="noopener noreferrer">无界之象 · 2014当代绘画艺术展<code>#/art-display</code></a></li>
+          <li class="child">
+            <ul>
+              <li><a href="./index.html#/art-display/structure-and-gaze" target="_blank" rel="noopener noreferrer">结构与凝视 No.7<code>#/art-display/structure-and-gaze</code></a></li>
+              <li><a href="./index.html#/art-display/wilderness-and-echo" target="_blank" rel="noopener noreferrer">旷野与回声的切面<code>#/art-display/wilderness-and-echo</code></a></li>
+              <li><a href="./index.html#/art-display/anonymous" target="_blank" rel="noopener noreferrer">匿名者<code>#/art-display/anonymous</code></a></li>
+              <li><a href="./index.html#/art-display/li-ran-memorial" target="_blank" rel="noopener noreferrer">李然：凝视与回响（特别纪念展）<code>#/art-display/li-ran-memorial</code></a></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>陈晖的艺术手记与生活随笔</h2>
+        <ul>
+          <li><a href="./index.html#/blog" target="_blank" rel="noopener noreferrer">博客首页<code>#/blog</code></a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>艺术评论博客</h2>
+        <ul>
+          <li><a href="./index.html#/art-critic-blog" target="_blank" rel="noopener noreferrer">观画录：《匿名者》评论<code>#/art-critic-blog</code></a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>澄江晚报</h2>
+        <ul>
+          <li><a href="./index.html#/news/piano-competition" target="_blank" rel="noopener noreferrer">第三届少儿钢琴大赛圆满结束<code>#/news/piano-competition</code></a></li>
+          <li><a href="./index.html#/news/children-painting-award-2011" target="_blank" rel="noopener noreferrer">2011年澄江市少儿绘画奖揭晓<code>#/news/children-painting-award-2011</code></a></li>
+          <li><a href="./index.html#/news/li-ran-death" target="_blank" rel="noopener noreferrer">青年艺术家李然于家中离世<code>#/news/li-ran-death</code></a></li>
+          <li><a href="./index.html#/news/chen-hui-interview" target="_blank" rel="noopener noreferrer">让孩子重新发现世界——专访陈晖<code>#/news/chen-hui-interview</code></a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>澄江实验小学</h2>
+        <ul>
+          <li><a href="./index.html#/school" target="_blank" rel="noopener noreferrer">学校首页<code>#/school</code></a></li>
+          <li class="child">
+            <ul>
+              <li><a href="./index.html#/school/news/opening-ceremony" target="_blank" rel="noopener noreferrer">我校2014年秋季开学典礼<code>#/school/news/opening-ceremony</code></a></li>
+              <li><a href="./index.html#/school/news/teaching-competition" target="_blank" rel="noopener noreferrer">我校举办教师教学能力评比大赛<code>#/school/news/teaching-competition</code></a></li>
+              <li><a href="./index.html#/school/news/canteen-inspection" target="_blank" rel="noopener noreferrer">热烈欢迎教育局领导参观我校食堂<code>#/school/news/canteen-inspection</code></a></li>
+              <li><a href="./index.html#/school/news/program-at-school" target="_blank" rel="noopener noreferrer">知名儿童节目进入我校举办线下活动<code>#/school/news/program-at-school</code></a></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>澄江少儿频道</h2>
+        <ul>
+          <li><a href="./index.html#/youth-channel" target="_blank" rel="noopener noreferrer">频道首页<code>#/youth-channel</code></a></li>
+          <li class="child">
+            <ul>
+              <li><a href="./index.html#/youth-channel/games/spot-the-difference" target="_blank" rel="noopener noreferrer">找不同大挑战<code>#/youth-channel/games/spot-the-difference</code></a></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>澄江市青少年宫</h2>
+        <ul>
+          <li><a href="./index.html#/youth-palace" target="_blank" rel="noopener noreferrer">青少年宫首页<code>#/youth-palace</code></a></li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>

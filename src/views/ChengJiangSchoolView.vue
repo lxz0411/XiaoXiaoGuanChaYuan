@@ -5,6 +5,16 @@ import openingCeremony from '../../素材/学校页/开学典礼.png'
 import teachingCompetition from '../../素材/学校页/教学评比.png'
 import canteenInspection from '../../素材/学校页/食堂视察.png'
 import programAtSchool from '../../素材/学校页/节目进校园.png'
+import hotlineIcon from '../../素材/学校页/icons/hotline.png'
+import studentIcon from '../../素材/学校页/icons/student.png'
+import teachingIcon from '../../素材/学校页/icons/teaching.png'
+import mailboxIcon from '../../素材/学校页/icons/mailbox.png'
+import announcementIcon from '../../素材/学校页/icons/announcement.png'
+import newsIcon from '../../素材/学校页/icons/news.png'
+import clockIcon from '../../素材/学校页/icons/clock.png'
+import verifiedIcon from '../../素材/学校页/icons/verified.png'
+import previousIcon from '../../素材/学校页/icons/previous.png'
+import pauseIcon from '../../素材/学校页/icons/pause.png'
 
 const focusItems = [
   {
@@ -90,10 +100,10 @@ const notices = [
 ]
 
 const services = [
-  { icon: '☎', title: '德育热线', text: '心育与家校互动', tone: 'blue' },
-  { icon: '✓', title: '学籍办理', text: '转学休学指南', tone: 'gold' },
-  { icon: '▰', title: '教师研修', text: '备课与教研网络', tone: 'sky' },
-  { icon: '✉', title: '校长信箱', text: '意见建议直达', tone: 'red' },
+  { icon: hotlineIcon, title: '德育热线', text: '心育与家校互动', tone: 'blue' },
+  { icon: studentIcon, title: '学籍办理', text: '转学休学指南', tone: 'gold' },
+  { icon: teachingIcon, title: '教师研修', text: '备课与教研网络', tone: 'sky' },
+  { icon: mailboxIcon, title: '校长信箱', text: '意见建议直达', tone: 'red' },
 ]
 </script>
 
@@ -143,7 +153,7 @@ const services = [
     <div class="school-content">
       <div class="school-container content-stack">
         <section class="ticker">
-          <strong><span>◆</span> 校园快讯</strong>
+          <strong><img class="inline-icon" :src="announcementIcon" alt="">校园快讯</strong>
           <div class="ticker-copy">
             <button type="button">
               <b>【重要通知】</b>2014-2015学年第一学期秋季开学典礼暨安全第一课通知
@@ -154,7 +164,7 @@ const services = [
               【教务公示】澄江实验小学2014年一年级新生均衡分班名单公示
             </button>
           </div>
-          <span class="ticker-controls">◖　Ⅱ</span>
+          <span class="ticker-controls" aria-hidden="true"><img :src="previousIcon" alt=""><img :src="pauseIcon" alt=""></span>
         </section>
 
         <section class="lead-grid">
@@ -193,7 +203,7 @@ const services = [
 
           <article class="news-card">
             <div class="tabs">
-              <button type="button" class="active">▧ 学校快讯</button>
+              <button type="button" class="active"><img class="inline-icon" :src="newsIcon" alt="">学校快讯</button>
 
             </div>
             <div class="news-body">
@@ -256,12 +266,12 @@ const services = [
                   :key="service.title"
                   type="button"
                 >
-                  <span class="service-icon" :class="service.tone">{{ service.icon }}</span>
+                  <span class="service-icon" :class="service.tone"><img :src="service.icon" alt=""></span>
                   <span><b>{{ service.title }}</b><small>{{ service.text }}</small></span>
                 </button>
               </div>
               <div class="reception">
-                <span>◷　教务咨询接待日：每周二、周四 14:00 - 16:30</span>
+                <span><img class="inline-icon" :src="clockIcon" alt="">教务咨询接待日：每周二、周四 14:00 - 16:30</span>
                 <button type="button">预约指引</button>
               </div>
             </div>
@@ -276,7 +286,7 @@ const services = [
             <button type="button">少先队工作网</button><i>·</i>
             <button type="button">市青少年活动中心</button>
           </div>
-          <span>☎　校长信箱：principal@cjsx.cn　|　教务咨询：0510-8688XXXX</span>
+          <span><img class="inline-icon" :src="hotlineIcon" alt="">校长信箱：principal@cjsx.cn　|　教务咨询：0510-8688XXXX</span>
         </section>
       </div>
     </div>
@@ -287,7 +297,7 @@ const services = [
           <p>版权所有 © 2014 澄江实验小学　澄江校区　地址：澄江市教育园区实验路18号　邮编：214400</p>
           <p>澄ICP备11029482号　网站访问总量：1,842,910 次　|　建议分辨率 1024×768 以上　|　推荐使用 IE9+ / 360安全浏览器 / Chrome 浏览</p>
         </div>
-        <span>✓ 事业单位网上可信标识</span>
+        <span><img class="inline-icon" :src="verifiedIcon" alt="">事业单位网上可信标识</span>
       </div>
     </div>
   </div>
@@ -321,6 +331,14 @@ const services = [
   font: inherit;
   text-align: inherit;
   cursor: pointer;
+}
+
+.inline-icon {
+  width: 17px;
+  height: 17px;
+  margin-right: 6px;
+  vertical-align: -4px;
+  object-fit: contain;
 }
 
 .school-container {
@@ -449,6 +467,8 @@ const services = [
 }
 
 .ticker > strong {
+  display: flex;
+  align-items: center;
   margin-left: 14px;
   padding: 3px 10px;
   border-radius: 3px;
@@ -482,9 +502,17 @@ const services = [
 }
 
 .ticker-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding-right: 15px;
   color: #78808b;
   white-space: nowrap;
+}
+
+.ticker-controls img {
+  width: 16px;
+  height: 16px;
 }
 
 .lead-grid,
@@ -823,6 +851,13 @@ const services = [
   height: 46px;
   border-radius: 5px;
   font-weight: 700;
+}
+
+.service-icon img {
+  display: block;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
 }
 
 .portal-icon.blue,

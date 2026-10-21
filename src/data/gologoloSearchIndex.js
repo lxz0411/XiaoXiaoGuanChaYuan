@@ -1,6 +1,8 @@
+import artCriticBlog from './artCriticBlog.json'
+
 const searchEntries = [
   {
-    keywords: ['澄江市儿童医院', '儿童医院', '澄江儿童医院'],
+    keywords: ['澄江市儿童医院'],
     results: [
       {
         title: '澄江市儿童医院信息管理系统',
@@ -10,7 +12,7 @@ const searchEntries = [
     ],
   },
   {
-    keywords: ['澄江实验小学', '澄江实小', '实验小学'],
+    keywords: ['澄江实验小学'],
     results: [
       {
         title: '澄江实验小学官方网站',
@@ -20,7 +22,7 @@ const searchEntries = [
     ],
   },
   {
-    keywords: ['澄江晚报', '第三届少儿钢琴大赛', '少儿钢琴大赛', '陈晓雨'],
+    keywords: ['陈晓雨'],
     results: [
       {
         title: '第三届少儿钢琴大赛圆满结束',
@@ -30,7 +32,7 @@ const searchEntries = [
     ],
   },
   {
-    keywords: ['2011年澄江市少儿绘画奖', '澄江市少儿绘画奖', '少儿绘画奖', '周子昂', '李然'],
+    keywords: ['周子昂', '李然'],
     results: [
       {
         title: '2011年澄江市少儿绘画奖揭晓',
@@ -40,7 +42,7 @@ const searchEntries = [
     ],
   },
   {
-    keywords: ['UCCA当代艺术空间', '无界之象', '2014当代绘画艺术展', '画展', '李然'],
+    keywords: ['李然'],
     results: [
       {
         title: '无界之象 · 2014当代绘画艺术展',
@@ -50,7 +52,7 @@ const searchEntries = [
     ],
   },
   {
-    keywords: ['李然', '青年艺术家李然', '李然离世', '匿名者'],
+    keywords: ['李然', '青年艺术家李然', '李然离世'],
     results: [
       {
         title: '青年艺术家李然于家中离世 曾因作品“匿名者”引发争议',
@@ -60,27 +62,7 @@ const searchEntries = [
     ],
   },
   {
-    keywords: ['李然', '李然纪念展', '凝视与回响', '公益纪念展览', '凝视与回响'],
-    results: [
-      {
-        title: '李然：凝视与回响——特别纪念展',
-        description: '回顾青年艺术家李然从童年习作到晚期创作的作品与文献。',
-        href: '#/art-display/li-ran-memorial',
-      },
-    ],
-  },
-  {
-    keywords: ['澄江市青少年宫', '澄江青少年宫', '青少年宫', '少年宫', '优秀儿童作品档案库', '繁华的城市', '李然'],
-    results: [
-      {
-        title: '澄江市青少年宫官方网站',
-        description: '公益活动、培训课程、社团风采及澄江市历年优秀儿童作品档案。',
-        href: '#/youth-palace',
-      },
-    ],
-  },
-  {
-    keywords: ['澄江少儿频道', '少儿频道', '儿童频道', '小小观察员'],
+    keywords: ['小小观察员'],
     results: [
       {
         title: '澄江少儿频道',
@@ -90,12 +72,27 @@ const searchEntries = [
     ],
   },
   {
-    keywords: ['陈晖', '小小观察员', '让孩子重新发现世界', '陈晖采访'],
+    keywords: ['陈晖', '小小观察员'],
     results: [
       {
-        title: '让孩子重新发现世界——专访儿童教育栏目《小小观察员》制片人陈晖',
+        title: '陈晖的博客',
+        description: '陈晖的个人博客页面。',
+        href: '#/blog',
+      },
+      {
+        title: '让孩子重新发现世界——专访儿童教育栏目“小小观察员”制片人陈晖',
         description: '《小小观察员》制片人陈晖谈儿童的好奇心、观察能力与节目未来计划。',
         href: '#/news/chen-hui-interview',
+      },
+    ],
+  },
+  {
+    keywords: ['李然', '匿名者', '《匿名者》', '观画录', '艺术评论', '艺术评论家'],
+    results: [
+      {
+        title: `${artCriticBlog.title} - ${artCriticBlog.blogName}`,
+        description: `艺术评论博客“${artCriticBlog.blogName}”对李然《匿名者》的评论及读者留言。`,
+        href: '#/art-critic-blog',
       },
     ],
   },

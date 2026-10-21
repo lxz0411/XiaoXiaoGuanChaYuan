@@ -4,6 +4,7 @@ node_modules/
 
 # Agent
 .cursor/
+.codex/
 
 # Logs
 *.log

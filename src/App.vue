@@ -6,10 +6,13 @@ import ChengJiangEveningNewsView from './views/ChengJiangEveningNewsView.vue'
 import ChengJiangSchoolNewsView from './views/ChengJiangSchoolNewsView.vue'
 import ChengJiangSchoolView from './views/ChengJiangSchoolView.vue'
 import ChenHuiBlogView from './views/ChenHuiBlogView.vue'
+import ArtCriticBlogView from './views/ArtCriticBlogView.vue'
 import GologoloSearchView from './views/GologoloSearchView.vue'
 import HospitalSystemView from './views/HospitalSystemView.vue'
 import IntroView from './views/IntroView.vue'
 import LiRanMemorialExhibitionView from './views/LiRanMemorialExhibitionView.vue'
+import PubMedReferenceView from './views/PubMedReferenceView.vue'
+import PaceReferenceView from './views/PaceReferenceView.vue'
 import SpotDifferenceGameView from './views/SpotDifferenceGameView.vue'
 import YouthChannelView from './views/YouthChannelView.vue'
 import YouthPalaceView from './views/YouthPalaceView.vue'
@@ -25,11 +28,15 @@ const routes = {
   '/art-display/li-ran-memorial': { view: LiRanMemorialExhibitionView, title: '李然：凝视与回响 - 特别纪念展' },
   '/hospital': { view: HospitalSystemView, title: '澄江市儿童医院信息管理系统' },
   '/gologolo': { view: GologoloSearchView, title: 'Gologolo' },
-  '/blog': { view: ChenHuiBlogView, title: '陈晖的艺术手记与生活随笔' },
+  '/blog': { view: ChenHuiBlogView, title: '陈晖的博客' },
+  '/art-critic-blog': { view: ArtCriticBlogView, title: '《匿名者》：空白的脸，现成的深刻 - 观画录' },
+  '/references/pubmed/9860071': { view: PubMedReferenceView, title: 'Photosensitive seizures - PubMed' },
+  '/references/pace/1930-2010': { view: PaceReferenceView, title: 'Recommendation 1930 (2010) - PACE' },
   '/news/piano-competition': { view: ChengJiangEveningNewsView, title: '第三届少儿钢琴大赛圆满结束 - 澄江晚报' },
   '/news/children-painting-award-2011': { view: ChengJiangEveningNewsView, title: '2011年澄江市少儿绘画奖揭晓 - 澄江晚报' },
   '/news/li-ran-death': { view: ChengJiangEveningNewsView, title: '青年艺术家李然于家中离世 - 澄江晚报' },
   '/news/chen-hui-interview': { view: ChengJiangEveningNewsView, title: '让孩子重新发现世界——专访陈晖 - 澄江晚报' },
+  '/news/lufeng-cyberbullying': { view: ChengJiangEveningNewsView, title: '陆丰女生遭“人肉搜索”后身亡 - 澄江晚报' },
   '/school': { view: ChengJiangSchoolView, title: '澄江实验小学官方网站' },
   '/school/news/opening-ceremony': { view: ChengJiangSchoolNewsView, title: '我校2014年秋季开学典礼 - 澄江实验小学' },
   '/school/news/teaching-competition': { view: ChengJiangSchoolNewsView, title: '我校举办教师教学能力评比大赛 - 澄江实验小学' },
@@ -57,10 +64,20 @@ function openLinksInNewTabs(event) {
   window.open(link.href, '_blank', 'noopener,noreferrer')
 }
 
+function openOverview() {
+  if (path.value !== '/') return
+  const url = new URL('overview.html', document.baseURI).href
+  const opened = window.open(url, '_blank', 'noopener,noreferrer')
+  if (!opened) {
+    console.warn('[总览] 浏览器拦截了自动打开的总览页，请允许本站弹出窗口后刷新引入页。')
+  }
+}
+
 onMounted(() => {
   syncHash()
   window.addEventListener('hashchange', syncHash)
   document.addEventListener('click', openLinksInNewTabs)
+  openOverview()
 })
 
 onBeforeUnmount(() => {
